@@ -91,15 +91,19 @@ function transformarTexto(texto) {
     const textoTransformado = textoSinAcento.toLowerCase().replace(/\s/, '');
     return textoTransformado;
   }
+
+function colorOriginal(){
+    for (var nombre in poligonos) {
+        poligonos[nombre].setStyle({ fillColor: estadoOriginal.get(nombre) });
+       
+    } 
+}  
   
 function edificio(){
 
     var Busqueda = document.getElementById("inputBusqueda").value;
     var inputBusqueda = transformarTexto(Busqueda);
-    for (var nombre in poligonos) {
-        poligonos[nombre].setStyle({ fillColor: estadoOriginal.get(nombre) });
-       
-    }
+   colorOriginal();
     if(poligonos.hasOwnProperty(inputBusqueda)){ 
         var poligono = poligonos[inputBusqueda];
         poligono.setStyle({ fillColor: 'green' });
@@ -192,9 +196,8 @@ bebederos.addEventListener('click', function () {
 
 bañosB.addEventListener('click', function () {
 
-    obtenerPosicion();
-    //hola();
-    //console.log(estadoOriginal);
+    //obtenerPosicion();
+   colorOriginal();
 
 });
 
