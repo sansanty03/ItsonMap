@@ -27,6 +27,8 @@ function onLocationError(e) {
     console.log("falso");
 }
 
+var footer = document.querySelector('footer');
+
 map.on('locationfound', onLocationFound);
 
 map.on('locationerror', onLocationError);
@@ -35,11 +37,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
 const estadoOriginal = new Map();
 
-var bot = false;
+var bebe = false;
 
  var bebederos = document.getElementById('BebederosBtn');
 
  var bañosB = document.getElementById('BañosBtn');
+
+ var rutaBtn = document.getElementById('RutasBtn');
+
+var prom = [];
+
+var caso = 0;
 
 var poligonos = {
     "av1800": av1800,
@@ -120,16 +128,13 @@ function edificio(){
     const promedioLatitud = sumaLatitud / coordenadasPoligono[0].length;
     const promedioLongitud = sumaLongitud / coordenadasPoligono[0].length;
     
-    const prom = [promedioLatitud, promedioLongitud];
-
-    if (PosLocalizada) {
-        rutas(PosActual[0],PosActual[1], prom[0],prom[1]);
-    }
+    prom = [promedioLatitud, promedioLongitud];
     
     const latitud = prom[0];
     const longitud = prom[1];
     
     const coordenadas = new L.LatLng(latitud, longitud);
+    caso = 1;
     map.flyTo(coordenadas,18);
     }
 }
@@ -138,34 +143,53 @@ inputBusqueda.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
        // event.preventDefault(); 
         edificio();
+        footer.style.visibility = 'visible';
     }
 });
 
 bebederos.addEventListener('click', function () {
     
-    if(!bot){
+    if(!bebe){
         var i = 0;
     for (var bebedero in Bebederos) {
         mark = Bebederos[i];
         mark.setOpacity(1);
         i++;
     }
-    bot = !bot;
-   
+    bebe = !bebe;
+    footer.style.visibility = 'visible';
+    caso = 2;
     } 
-    else if(bot){
+    else if(bebe){
         var i = 0;
         for (var bebedero in Bebederos) {
             mark = Bebederos[i];
             mark.setOpacity(0);
             i++;
         }
-        bot = !bot;
+        bebe = !bebe;
 
     }
 
+{
 
-    if(bot && PosLocalizada){
+
+}
+});
+
+bañosB.addEventListener('click', function () {
+
+    //obtenerPosicion();
+    footer.style.visibility = 'visible';
+   colorOriginal();
+
+});
+
+rutaBtn.addEventListener('click', function () {
+    obtenerPosicion();
+    
+    if(PosLocalizada){
+        if(caso == 2){
         var BebederoPun;
         var distancias= [];
         for (let g = 0; g < BebederosPos.length; g++) {
@@ -184,25 +208,19 @@ bebederos.addEventListener('click', function () {
   
         }
         rutas(PosActual[0],PosActual[1],BebederosPos[BebederoPun][0], BebederosPos[BebederoPun][1]);
-
+        }
+        else if(caso == 1){
+        rutas(PosActual[0],PosActual[1], prom[0],prom[1]);
+        }
     }
 
-
-{
-
-
-}
-});
-
-bañosB.addEventListener('click', function () {
-
-    //obtenerPosicion();
-   colorOriginal();
+    
 
 });
+
 
 map.on('zoomend', function() {
-    if(bot){
+    if(bebe){
     var currentZoom = map.getZoom();
   
     markers.forEach(function(marker) {

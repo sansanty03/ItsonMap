@@ -101,6 +101,7 @@ button {
    }
 
    footer{
+    visibility: hidden;
     z-index: 3;
     position: fixed;    
     top: 90%;
@@ -119,6 +120,7 @@ button {
     background-color: #2ba8fb;
   }
   #RutasBtn{
+    
     background-color: #2ba8fb;
     border-radius: 10px;
     width: 120px;
