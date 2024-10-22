@@ -15,7 +15,7 @@ function obtenerPosicion() {
 
 function onLocationFound(e) {
     console.log("Coordenadas actualizadas:", e.latlng.lat, e.latlng.lng);
-    var markerPos = L.marker(e.latlng).addTo(map);
+    L.marker(e.latlng).addTo(map);
     PosActual = [e.latlng.lat, e.latlng.lng];
     markerPos.bindPopup("Tu posición actual").openPopup();
     PosLocalizada = true;
