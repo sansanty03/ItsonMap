@@ -437,7 +437,7 @@ Bebederos.push(marca);
 var markers = Bebederos;
 
 
-var markerPos;
+var markerPos = L.marker([27.49265, -109.971157]).addTo(map);;
 
 
 /*var marker = L.marker([27.493, -109.9711]).addTo(map); // Añadir un solo marcador en la posición específica
