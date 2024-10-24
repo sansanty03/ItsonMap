@@ -405,10 +405,6 @@ var LeafIcon = L.Icon.extend({
         iconAnchor:   [19, 64]
     }
 });
-
-av1800.bindPopup("I am a polygon.");
-
-
 var bañosIcon = new LeafIcon({iconUrl: 'ImgBebede.png'});
 
 var ListPoligon = [av200,av300,av400,av500,av600,av700,av800,av900,av1000,av1100,av1200,av1300,av1400,av1500,av1600,av1700,av1800,LV1500,LV100,LV200,LV300,LV500,LV700,LV800,LV900,LV1100, Biblioteca,CafeteriaAl, RegistroEsc,Tutorias];
@@ -437,7 +433,7 @@ Bebederos.push(marca);
 var markers = Bebederos;
 
 
-var markerPos = L.marker([27.49265, -109.971157]).addTo(map);;
+var markerPos = L.marker([27.49265, -109.971157],{opacity:0,iconSize:3 }).addTo(map);;
 
 
 /*var marker = L.marker([27.493, -109.9711]).addTo(map); // Añadir un solo marcador en la posición específica
