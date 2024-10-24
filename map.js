@@ -183,7 +183,7 @@ bañosB.addEventListener('click', function () {
     //obtenerPosicion();
     footer.style.visibility = 'visible';
    colorOriginal();
-    console.log("prueba3");
+    console.log("prueba4");
 
 });
 
