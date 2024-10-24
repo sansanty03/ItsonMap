@@ -10,7 +10,7 @@ let PosLocalizada = false;
 let PosActual=[];
 
 function obtenerPosicion() {
-    map.locate({ setView: true, maxZoom: 16 });
+    map.locate({ setView: true, maxZoom: 30 });
 }
 
 function onLocationFound(e) {
@@ -183,7 +183,7 @@ bañosB.addEventListener('click', function () {
     //obtenerPosicion();
     footer.style.visibility = 'visible';
    colorOriginal();
-    console.log("prueba4");
+    console.log("prueba5");
 
 });
 
