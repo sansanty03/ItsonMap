@@ -9,7 +9,7 @@ var popup = L.popup();
 let PosLocalizada = false;
 let PosActual=[];
 
-function obtenerPosicion() {
+async function obtenerPosicion() {
     map.locate({ setView: true, maxZoom: 30 });
 }
 
@@ -187,8 +187,8 @@ bañosB.addEventListener('click', function () {
 
 });
 
-rutaBtn.addEventListener('click', function () {
-    obtenerPosicion();
+rutaBtn.addEventListener('click', async function () {
+    await obtenerPosicion();
     
     if(PosLocalizada){
         if(caso == 2){
