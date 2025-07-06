@@ -1,0 +1,7 @@
+itson:
+arreglar boton rutas -5
+precision mejorada -8
+agregar baños y terminar bebederos-2
+agregar boton localizar -4
+agregar aulas -6
+delimitar la zona -7

@@ -7,9 +7,10 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
 var popup = L.popup();
 
 let PosLocalizada = false;
+let enItson = false;
 let PosActual=[];
 
-async function obtenerPosicion() {
+function obtenerPosicion() {
     map.locate({ setView: true, maxZoom: 30 });
 }
 
@@ -18,21 +19,30 @@ function onLocationFound(e) {
     console.log("Coordenadas actualizadas:", e.latlng.lat, e.latlng.lng);
     markerPos = L.marker(e.latlng).addTo(map);
     PosActual = [e.latlng.lat, e.latlng.lng];
+    dentroItson(e.latlng.lat, e.latlng.lng);
     markerPos.bindPopup("Tu posición actual").openPopup();
     PosLocalizada = true;
-    console.log("real");
 }
 
 function onLocationError(e) {
     PosLocalizada = false;
+    enItson = false;
     console.log("falso");
 }
 
-var footer = document.querySelector('footer');
+function dentroItson(lat, lon){
+    var pointT = turf.point(lat, lon);  
+    var polygon = turf.polygon(coordItson);
+    enItson = turf.booleanPointInPolygon(pointT, polygon);
+
+}
 
 map.on('locationfound', onLocationFound);
 
 map.on('locationerror', onLocationError);
+
+
+var footer = document.querySelector('footer');
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -40,11 +50,16 @@ const estadoOriginal = new Map();
 
 var bebe = false;
 
- var bebederos = document.getElementById('BebederosBtn');
+var bañoBool = false;
 
- var bañosB = document.getElementById('BañosBtn');
+var bebederos = document.getElementById('BebederosBtn');
 
- var rutaBtn = document.getElementById('RutasBtn');
+var bañosB = document.getElementById('BañosBtn');
+
+var rutaBtn = document.getElementById('RutasBtn');
+
+var LocalizarBtn = document.getElementById('LocalizarBtn');
+
 
 var prom = [];
 
@@ -149,7 +164,10 @@ inputBusqueda.addEventListener('keydown', function(event) {
 });
 
 bebederos.addEventListener('click', function () {
-    
+   mostrarBebederos();
+});
+
+function mostrarBebederos(){
     if(!bebe){
         var i = 0;
     for (var bebedero in Bebederos) {
@@ -169,72 +187,235 @@ bebederos.addEventListener('click', function () {
             i++;
         }
         bebe = !bebe;
-
+        footer.style.visibility = 'hidden';
     }
-
-{
-
-
 }
-});
 
 bañosB.addEventListener('click', function () {
 
     //obtenerPosicion();
-    footer.style.visibility = 'visible';
-   colorOriginal();
-    console.log("prueba5");
+    mostrarBaños();
 
 });
 
-rutaBtn.addEventListener('click', async function () {
-    await obtenerPosicion();
-    
-    if(PosLocalizada){
-        if(caso == 2){
-        var BebederoPun;
-        var distancias= [];
-        for (let g = 0; g < BebederosPos.length; g++) {
-          var distan = calcularDistancia(BebederosPos[g][0], BebederosPos[g][1]  ,PosActual[0],PosActual[1]);
-          distancias.push(distan);
-         
+function mostrarBaños(){
+    if(!bañoBool){
+        var i = 0;
+    for (var baño in bañosHombres) {
+        mark = bañosHombres[i];
+        mark.setOpacity(1);
+        i++;
+    }
+    var i = 0;
+    for (var baño in bañosMujeres) {
+        mark = bañosMujeres[i];
+        mark.setOpacity(1);
+        i++;
+    }
+    var i = 0;
+    for (var baño in bañosHomMuje) {
+        mark = bañosHomMuje[i];
+        mark.setOpacity(1);
+        i++;
+    }
 
+    bañoBool = !bañoBool;
+    footer.style.visibility = 'visible';
+    caso = 2;
+    } 
+    else if(bañoBool){
+        var i = 0;
+        for (var baño in bañosHombres) {
+            mark = bañosHombres[i];
+            mark.setOpacity(0);
+            i++;
         }
-  
-        var distanMinima = Infinity;
-        for (let g = 0; g < BebederosPos.length; g++) {
-          if (distancias[g] <= distanMinima) {
-            BebederoPun = g; 
-            distanMinima = distancias[g];
-          }
-  
+        var i = 0;
+        for (var baño in bañosMujeres) {
+        mark = bañosMujeres[i];
+        mark.setOpacity(0);
+        i++;
         }
-        rutas(PosActual[0],PosActual[1],BebederosPos[BebederoPun][0], BebederosPos[BebederoPun][1]);
+        var i = 0;
+        for (var baño in bañosHomMuje) {
+        mark = bañosHomMuje[i];
+        mark.setOpacity(0);
+        i++;
+        }
+        bañoBool = !bañoBool;
+        footer.style.visibility = 'hidden';
+    }
+
+}
+
+LocalizarBtn.addEventListener('click', function () {
+    obtenerPosicion();
+});
+
+
+rutaBtn.addEventListener('click', function () {
+    
+  if(PosLocalizada){
+        if(caso == 2){
+            bebedeRut();
         }
         else if(caso == 1){
         rutas(PosActual[0],PosActual[1], prom[0],prom[1]);
         }
     }
+    else{
+        obtenerPosicion();
+        
+    }
+
+
+//rutasEspecificas();
 
     
 
 });
 
 
+
+
+
+function rutasEspecificas(){
+    if(PosLocalizada){
+        if(caso == 2){
+            bebedeRut();
+        }
+        else if(caso == 1){
+        rutas(PosActual[0],PosActual[1], prom[0],prom[1]);
+        }
+    }
+    else{
+        obtenerPosicion();
+        rutasEspecificas();
+    }
+}
+
+function bebedeRut(){
+    var BebederoPun;
+    var distancias= [];
+    for (let g = 0; g < BebederosPos.length; g++) {
+      var distan = calcularDistancia(BebederosPos[g][0], BebederosPos[g][1]  ,PosActual[0],PosActual[1]);
+      distancias.push(distan);
+     
+
+    }
+
+    var distanMinima = Infinity;
+    for (let g = 0; g < BebederosPos.length; g++) {
+      if (distancias[g] <= distanMinima) {
+        BebederoPun = g; 
+        distanMinima = distancias[g];
+      }
+
+    }
+    rutas(PosActual[0],PosActual[1],BebederosPos[BebederoPun][0], BebederosPos[BebederoPun][1]);
+
+}
+
+
 map.on('zoomend', function() {
     if(bebe){
-    var currentZoom = map.getZoom();
-  
-    markers.forEach(function(marker) {
+        var currentZoom = map.getZoom();
+    
+        Bebederos.forEach(function(marker) {
+            if (currentZoom < 15) {
+                marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
+            } else {
+                marker.setOpacity(1); // Mostrar marcador si el zoom es mayor o igual a 12
+                var scaleFactor = Math.pow(1.5, currentZoom - 12); // Ajustar escala del icono
+        
+                var iconSize = [5 * scaleFactor, 5* scaleFactor];
+                marker.setIcon(L.icon({
+                    iconUrl: 'ImgBebede.png',
+                    
+                    iconSize: iconSize,
+                    iconAnchor: [iconSize[0] / 2, iconSize[1]],
+                    popupAnchor: [0, -iconSize[1] / 2]
+                    
+                }));
+                
+            }
+        });
+    }
+    if(bañoBool){
+        var currentZoom = map.getZoom();
+            bañosHombres.forEach(function(marker) {
+                if (currentZoom < 15) {
+                    marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
+                } else {
+                    marker.setOpacity(1); // Mostrar marcador si el zoom es mayor o igual a 12
+                    var scaleFactor = Math.pow(1.5, currentZoom - 12); // Ajustar escala del icono
+            
+                    var iconSize = [5 * scaleFactor, 5* scaleFactor];
+                    marker.setIcon(L.icon({
+                        iconUrl: 'bañosHombres.png',
+                        
+                        iconSize: iconSize,
+                        iconAnchor: [iconSize[0] / 2, iconSize[1]],
+                        popupAnchor: [0, -iconSize[1] / 2]
+                        
+                    }));
+                    
+                }
+            });
+
+            bañosMujeres.forEach(function(marker) {
+                if (currentZoom < 15) {
+                    marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
+                } else {
+                    marker.setOpacity(1); // Mostrar marcador si el zoom es mayor o igual a 12
+                    var scaleFactor = Math.pow(1.5, currentZoom - 12); // Ajustar escala del icono
+            
+                    var iconSize = [5 * scaleFactor, 5* scaleFactor];
+                    marker.setIcon(L.icon({
+                        iconUrl: 'bañosMujeres.png',
+                        
+                        iconSize: iconSize,
+                        iconAnchor: [iconSize[0] / 2, iconSize[1]],
+                        popupAnchor: [0, -iconSize[1] / 2]
+                        
+                    }));
+                    
+                }
+            });
+
+            bañosHomMuje.forEach(function(marker) {
+                if (currentZoom < 15) {
+                    marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
+                } else {
+                    marker.setOpacity(1); // Mostrar marcador si el zoom es mayor o igual a 12
+                    var scaleFactor = Math.pow(1.5, currentZoom - 12); // Ajustar escala del icono
+            
+                    var iconSize = [5 * scaleFactor, 5* scaleFactor];
+                    marker.setIcon(L.icon({
+                        iconUrl: 'bañosHombresMujeres.png',
+                        
+                        iconSize: iconSize,
+                        iconAnchor: [iconSize[0] / 2, iconSize[1]],
+                        popupAnchor: [0, -iconSize[1] / 2]
+                        
+                    }));
+                    
+                }
+            });
+
+    }
+    if(!enItson){
+    entradasLugares.forEach(function(marker) {
+        var currentZoom = map.getZoom();
         if (currentZoom < 15) {
             marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
         } else {
             marker.setOpacity(1); // Mostrar marcador si el zoom es mayor o igual a 12
             var scaleFactor = Math.pow(1.5, currentZoom - 12); // Ajustar escala del icono
-    
+
             var iconSize = [5 * scaleFactor, 5* scaleFactor];
             marker.setIcon(L.icon({
-                iconUrl: 'ImgBebede.png',
+                iconUrl: 'entradas.png',
                 
                 iconSize: iconSize,
                 iconAnchor: [iconSize[0] / 2, iconSize[1]],
@@ -243,10 +424,10 @@ map.on('zoomend', function() {
             }));
             
         }
-    });}
+    });
+    }
 });
-
-  });
+});
   
 
 
