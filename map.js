@@ -31,8 +31,8 @@ function onLocationError(e) {
 }
 
 function dentroItson(lat, lon){
-    var pointT = turf.point(lat, lon);  
-    var polygon = turf.polygon(coordItson);
+    var pointT = turf.point([lat, lon]);  
+    var polygon = turf.polygon([coordItson]);
     enItson = turf.booleanPointInPolygon(pointT, polygon);
 
 }
@@ -187,6 +187,13 @@ function mostrarBebederos(){
             i++;
         }
         bebe = !bebe;
+        ocultarBebederos();
+
+    }
+}
+
+function ocultarBebederos() {
+    if(!bebe && !bañoBool ){
         footer.style.visibility = 'hidden';
     }
 }
@@ -243,18 +250,15 @@ function mostrarBaños(){
         i++;
         }
         bañoBool = !bañoBool;
-        footer.style.visibility = 'hidden';
+        ocultarBebederos();
     }
 
 }
 
-LocalizarBtn.addEventListener('click', function () {
-    obtenerPosicion();
-});
 
 
 rutaBtn.addEventListener('click', function () {
-    
+    obtenerPosicion();
   if(PosLocalizada){
         if(caso == 2){
             bebedeRut();
@@ -320,7 +324,6 @@ function bebedeRut(){
 map.on('zoomend', function() {
     if(bebe){
         var currentZoom = map.getZoom();
-    
         Bebederos.forEach(function(marker) {
             if (currentZoom < 15) {
                 marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
@@ -337,7 +340,6 @@ map.on('zoomend', function() {
                     popupAnchor: [0, -iconSize[1] / 2]
                     
                 }));
-                
             }
         });
     }
