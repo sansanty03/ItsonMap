@@ -69,9 +69,6 @@ function calcularAngulo(latitudA, longitudA, latitudB, longitudB) {
     }
    
 function rutas(lat0, lon0, latF, lonF){
-
-  
-
   lineasLayer.clearLayers();
     var puntoB = [lat0, lon0]; 
     var punto0 = [latF, lonF]
@@ -100,9 +97,6 @@ function rutas(lat0, lon0, latF, lonF){
           ListPoligon.splice(indice, 1);
         }
     }
- 
-  
-
     for (let index = 0; index < 500; index++) {
 
     var angle = calcularAngulo(punto0[0], punto0[1], puntoB[0], puntoB[1]);
@@ -184,13 +178,9 @@ function rutas(lat0, lon0, latF, lonF){
     punto01 = false;
 
     }
-    
-   
     }
 
     lineasLayer.addTo(map);
-   
-
 }
 /*
 function onMapClick(e) {

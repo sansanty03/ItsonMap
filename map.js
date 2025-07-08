@@ -43,30 +43,21 @@ map.on('locationerror', onLocationError);
 
 
 var footer = document.querySelector('footer');
-
 document.addEventListener("DOMContentLoaded", function() {
-
 const estadoOriginal = new Map();
-
 var bebe = false;
-
 var bañoBool = false;
-
 var bebederos = document.getElementById('BebederosBtn');
-
 var bañosB = document.getElementById('BañosBtn');
-
 var rutaBtn = document.getElementById('RutasBtn');
-
 var LocalizarBtn = document.getElementById('LocalizarBtn');
-
-
 var prom = [];
 
 var caso = 0;
 
 var poligonos = {
     "av1800": av1800,
+    "av1700": av1700,
     "av1600": av1600,
     "av1500": av1500,
     "av1400": av1400,
@@ -74,9 +65,9 @@ var poligonos = {
     "av1200": av1200,
     "av1100": av1100,
     "av1000": av1000,
-    "av800": av800,
-    "av700": av700, 
     "av900": av900,
+    "av800": av800,
+    "av700": av700,
     "av600": av600,
     "av500": av500,
     "av400": av400,
@@ -85,14 +76,40 @@ var poligonos = {
     "lv100": LV100,
     "lv200": LV200,
     "lv300": LV300,
-    "lv500":LV500,
-    "lv700":LV700,
-    "lv800":LV800,
-    "lv900":LV900,
+    "lv500": LV500,
+    "lv700": LV700,
+    "lv800": LV800,
+    "lv900": LV900,
     "lv1500": LV1500,
     "lv1100": LV1100,
+    "cafeteriaal": CafeteriaAl,
+    "registroesc": RegistroEsc,
     "tutorias": Tutorias,
+    "biblioteca": Biblioteca,
+    "polideportivo": polideportivo,
+    "videoconferencias": VideoConferencias,
+    "cisco": cisco,
+    "cad": cad,
+    "avb400": avb400,
+    "aulamagna": aulaMagna,
+    "cafeteriakiawa": cafeteriaKiawa,
+    "difusion": difusion,
+    "cultural": cultural,
+    "cafeteria2": cafeteria2,
+    "libreria": libreria,
+    "beisbolcancha": beisbolCancha,
+    "beisbolcanchachica": beisbolCanchaChica,
+    "futbolcancha1": futbolCancha1,
+    "futbolcancha2": futbolCancha2,
+    "ateltismocancha": ateltismoCancha,
+    "tenniscancha1": tennisCancha1,
+    "tenniscancha2": tennisCancha2,
+    "tenniscancha3": tennisCancha3,
+    "basquetgym": basquetGym,
+    "albercaolimpca": albercaOlimpca,
+    "albercachica": albercaChica
 };
+
 
 for (var nombre in poligonos) {
         estadoOriginal.set(nombre, poligonos[nombre].options.fillColor );

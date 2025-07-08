@@ -135,7 +135,24 @@ button {
 
   }
 
-   
+.marker-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.marker-circle.start {
+    background-color: #0F9D58;
+    box-shadow: 0 0 0 3px rgba(15, 157, 88, 0.3);
+}
+
+.marker-circle.end {
+    background-color: #DB4437;
+    box-shadow: 0 0 0 3px rgba(219, 68, 55, 0.3);
+}
    
    
    
