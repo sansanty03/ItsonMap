@@ -1,4 +1,4 @@
-// Función para cerrar automáticamente los polígonos
+
 var lineasLayer = L.layerGroup().addTo(map);
 
 function cerrarPoligono(coords) {
@@ -6,7 +6,7 @@ function cerrarPoligono(coords) {
         Math.abs(a.lat - b.lat) < tolerancia && Math.abs(a.lng - b.lng) < tolerancia;
 
     if (coords.length > 0 && !sonIguales(coords[0], coords[coords.length - 1])) {
-        return [...coords, coords[0]]; // Añade el primer punto al final si no está cerrado
+        return [...coords, coords[0]];
     }
     return coords;
 }
@@ -83,7 +83,6 @@ function rutasEdificio(latInicio, lonInicio, latFin, lonFin, poligonoDestino = n
         const anchoGrid = 100;
         const altoGrid = 100;
 
-        // ❗ PASAR el polígono a excluir
         const gridMatrix = crearMatrizDesdePoligonos(ListPoligon, anchoGrid, altoGrid, poligonoDestino);
         const grid = new PF.Grid(gridMatrix);
 
@@ -156,8 +155,6 @@ function rutasEdificio(latInicio, lonInicio, latFin, lonFin, poligonoDestino = n
 }
 
 
-
-// 4. Funciones de utilidad (se mantienen igual)
 function calcularDistancia(lat1, lon1, lat2, lon2) {
     const radioTierraKm = 6371; 
     const dLat = deg2rad(lat2 - lat1);

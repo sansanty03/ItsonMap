@@ -51,6 +51,7 @@ var bebederos = document.getElementById('BebederosBtn');
 var bañosB = document.getElementById('BañosBtn');
 var rutaBtn = document.getElementById('RutasBtn');
 var LocalizarBtn = document.getElementById('LocalizarBtn');
+var EtiquetasLugares = document.getElementsByClassName("label-tooltip");
 var prom = [];
 
 var caso = 0;
@@ -339,8 +340,8 @@ function bebedeRut(){
 
 
 map.on('zoomend', function() {
-    if(bebe){
-        var currentZoom = map.getZoom();
+    var currentZoom = map.getZoom();
+    if (bebe) {
         Bebederos.forEach(function(marker) {
             if (currentZoom < 15) {
                 marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
@@ -361,7 +362,6 @@ map.on('zoomend', function() {
         });
     }
     if(bañoBool){
-        var currentZoom = map.getZoom();
             bañosHombres.forEach(function(marker) {
                 if (currentZoom < 15) {
                     marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
@@ -425,7 +425,6 @@ map.on('zoomend', function() {
     }
     if(!enItson){
     entradasLugares.forEach(function(marker) {
-        var currentZoom = map.getZoom();
         if (currentZoom < 15) {
             marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
         } else {
@@ -445,6 +444,15 @@ map.on('zoomend', function() {
         }
     });
     }
+    for (i = 0; i < EtiquetasLugares.length; i++) {
+        if (currentZoom < 18) {
+            EtiquetasLugares[i].style.opacity = 0;
+        }
+        else {
+            EtiquetasLugares[i].style.opacity = 1;
+        }
+    }
+
 });
 });
   

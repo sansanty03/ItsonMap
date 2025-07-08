@@ -558,7 +558,61 @@ var ListPoligon = [ av1800, av1700, av1600, av1500, av1400, av1300, av1200,
                     cisco, cad, avb400, aulaMagna, cafeteriaKiawa, difusion,
                     cultural, cafeteria2, libreria, beisbolCancha, beisbolCanchaChica,
                     futbolCancha1, futbolCancha2, ateltismoCancha, tennisCancha1, 
-                    tennisCancha2, tennisCancha3, basquetGym, albercaOlimpca, albercaChica];
+    tennisCancha2, tennisCancha3, basquetGym, albercaOlimpca, albercaChica];
+
+av1800.bindTooltip("AV1800", { permanent: true, direction: "center", className: "label-tooltip" });
+av1700.bindTooltip("AV1700", { permanent: true, direction: "center", className: "label-tooltip" });
+av1600.bindTooltip("AV1600", { permanent: true, direction: "center", className: "label-tooltip" });
+av1500.bindTooltip("AV1500", { permanent: true, direction: "center", className: "label-tooltip" });
+av1400.bindTooltip("AV1400", { permanent: true, direction: "center", className: "label-tooltip" });
+av1300.bindTooltip("AV1300", { permanent: true, direction: "center", className: "label-tooltip" });
+av1200.bindTooltip("AV1200", { permanent: true, direction: "center", className: "label-tooltip" });
+av1100.bindTooltip("AV1100", { permanent: true, direction: "center", className: "label-tooltip" });
+av1000.bindTooltip("AV1000", { permanent: true, direction: "center", className: "label-tooltip" });
+av800.bindTooltip("AV800", { permanent: true, direction: "center", className: "label-tooltip" });
+av700.bindTooltip("AV700", { permanent: true, direction: "center", className: "label-tooltip" });
+av600.bindTooltip("AV600", { permanent: true, direction: "center", className: "label-tooltip" });
+av500.bindTooltip("AV500", { permanent: true, direction: "center", className: "label-tooltip" });
+av400.bindTooltip("AV400", { permanent: true, direction: "center", className: "label-tooltip" });
+av300.bindTooltip("AV300", { permanent: true, direction: "center", className: "label-tooltip" });
+av200.bindTooltip("AV200", { permanent: true, direction: "center", className: "label-tooltip" });
+LV100.bindTooltip("LV100", { permanent: true, direction: "center", className: "label-tooltip" });
+LV200.bindTooltip("LV200", { permanent: true, direction: "center", className: "label-tooltip" });
+LV300.bindTooltip("LV300", { permanent: true, direction: "center", className: "label-tooltip" });
+LV500.bindTooltip("LV500", { permanent: true, direction: "center", className: "label-tooltip" });
+LV700.bindTooltip("LV700", { permanent: true, direction: "center", className: "label-tooltip" });
+LV800.bindTooltip("LV800", { permanent: true, direction: "center", className: "label-tooltip" });
+LV900.bindTooltip("LV900", { permanent: true, direction: "center", className: "label-tooltip" });
+LV1500.bindTooltip("LV1500", { permanent: true, direction: "center", className: "label-tooltip" });
+LV1100.bindTooltip("LV1100", { permanent: true, direction: "center", className: "label-tooltip" });
+CafeteriaAl.bindTooltip("CAFETERIAAL", { permanent: true, direction: "center", className: "label-tooltip" });
+RegistroEsc.bindTooltip("REGISTROESC", { permanent: true, direction: "center", className: "label-tooltip" });
+Tutorias.bindTooltip("TUTORIAS", { permanent: true, direction: "center", className: "label-tooltip" });
+Biblioteca.bindTooltip("BIBLIOTECA", { permanent: true, direction: "center", className: "label-tooltip" });
+polideportivo.bindTooltip("POLIDEPORTIVO", { permanent: true, direction: "center", className: "label-tooltip" });
+av900.bindTooltip("AV900", { permanent: true, direction: "center", className: "label-tooltip" });
+VideoConferencias.bindTooltip("VIDEOCONFERENCIAS", { permanent: true, direction: "center", className: "label-tooltip" });
+cisco.bindTooltip("CISCO", { permanent: true, direction: "center", className: "label-tooltip" });
+cad.bindTooltip("CAD", { permanent: true, direction: "center", className: "label-tooltip" });
+avb400.bindTooltip("AVB400", { permanent: true, direction: "center", className: "label-tooltip" });
+aulaMagna.bindTooltip("AULAMAGNA", { permanent: true, direction: "center", className: "label-tooltip" });
+cafeteriaKiawa.bindTooltip("CAFETERIAKIAWA", { permanent: true, direction: "center", className: "label-tooltip" });
+difusion.bindTooltip("DIFUSION", { permanent: true, direction: "center", className: "label-tooltip" });
+cultural.bindTooltip("CULTURAL", { permanent: true, direction: "center", className: "label-tooltip" });
+cafeteria2.bindTooltip("CAFETERIA2", { permanent: true, direction: "center", className: "label-tooltip" });
+libreria.bindTooltip("LIBRERIA", { permanent: true, direction: "center", className: "label-tooltip" });
+beisbolCancha.bindTooltip("BEISBOLCANCHA", { permanent: true, direction: "center", className: "label-tooltip" });
+beisbolCanchaChica.bindTooltip("BEISBOLCANCHACHICA", { permanent: true, direction: "center", className: "label-tooltip" });
+futbolCancha1.bindTooltip("FUTBOLCANCHA1", { permanent: true, direction: "center", className: "label-tooltip" });
+futbolCancha2.bindTooltip("FUTBOLCANCHA2", { permanent: true, direction: "center", className: "label-tooltip" });
+ateltismoCancha.bindTooltip("ATELTISMOCANCHA", { permanent: true, direction: "center", className: "label-tooltip" });
+tennisCancha1.bindTooltip("TENNISCANCHA1", { permanent: true, direction: "center", className: "label-tooltip" });
+tennisCancha2.bindTooltip("TENNISCANCHA2", { permanent: true, direction: "center", className: "label-tooltip" });
+tennisCancha3.bindTooltip("TENNISCANCHA3", { permanent: true, direction: "center", className: "label-tooltip" });
+basquetGym.bindTooltip("BASQUETGYM", { permanent: true, direction: "center", className: "label-tooltip" });
+albercaOlimpca.bindTooltip("ALBERCAOLIMPCA", { permanent: true, direction: "center", className: "label-tooltip" });
+albercaChica.bindTooltip("ALBERCACHICA", { permanent: true, direction: "center", className: "label-tooltip" });
+
 
 
 var BebederosPos = [[27.49229681466376, -109.9716952788331], [27.492575582091305, -109.97005591674518],
