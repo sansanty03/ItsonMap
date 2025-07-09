@@ -14,6 +14,40 @@ function obtenerPosicion() {
     map.locate({ setView: true, maxZoom: 30 });
 }
 
+function obtenerPosicionAsync() {
+    return new Promise((resolve, reject) => {
+        function onLocationFound(e) {
+            map.off('locationfound', onLocationFound);
+            map.off('locationerror', onLocationError);
+
+            if (markerPos) markerPos.remove();
+            console.log("Coordenadas actualizadas:", e.latlng.lat, e.latlng.lng);
+            markerPos = L.marker(e.latlng).addTo(map);
+            PosActual = [e.latlng.lat, e.latlng.lng];
+            dentroItson(e.latlng.lat, e.latlng.lng);
+            markerPos.bindPopup("Tu posición actual").openPopup();
+            PosLocalizada = true;
+            resolve(); // ✅ resolvemos la promesa
+        }
+
+        function onLocationError(e) {
+            map.off('locationfound', onLocationFound);
+            map.off('locationerror', onLocationError);
+
+            PosLocalizada = false;
+            enItson = false;
+            console.log("falso");
+            reject(); // ❌ rechazamos la promesa
+        }
+
+        map.on('locationfound', onLocationFound);
+        map.on('locationerror', onLocationError);
+
+        map.locate({ setView: true, maxZoom: 30 });
+    });
+}
+
+
 function onLocationFound(e) {
     markerPos.remove();
     console.log("Coordenadas actualizadas:", e.latlng.lat, e.latlng.lng);
@@ -274,28 +308,20 @@ function mostrarBaños(){
 }
 
 
-
-rutaBtn.addEventListener('click', function () {
-    obtenerPosicion();
-  if(PosLocalizada){
-        if(caso == 2){
+rutaBtn.addEventListener('click', async function () {
+    try {
+        await obtenerPosicionAsync(); 
+        if (caso == 2) {
             bebedeRut();
+        } else if (caso == 1) {
+            rutas(PosActual[0], PosActual[1], prom[0], prom[1]);
         }
-        else if(caso == 1){
-        rutas(PosActual[0],PosActual[1], prom[0],prom[1]);
-        }
+    } catch (e) {
+        console.log("No se pudo obtener la ubicación.");
+        // podrías mostrar un mensaje al usuario
     }
-    else{
-        obtenerPosicion();
-        
-    }
-
-
-//rutasEspecificas();
-
-    
-
 });
+
 
 
 
