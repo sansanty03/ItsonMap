@@ -1,0 +1,27 @@
+-- Tabla Categorías
+CREATE TABLE categorias (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    color VARCHAR(7) NOT NULL,
+    fillColor VARCHAR(7),
+    fillOpacity DECIMAL(2,1)
+);
+
+-- Tabla Polígonos
+CREATE TABLE poligonos (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    coordenadas JSON NOT NULL,
+    categoria_id INT NOT NULL,
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+);
+
+-- Tabla Marcadores
+CREATE TABLE marcadores (
+    id INT PRIMARY KEY,
+    tipo VARCHAR(50) NOT NULL,
+    lat DECIMAL(9,6) NOT NULL,
+    lng DECIMAL(9,6) NOT NULL,
+    iconUrl VARCHAR(255),
+    visible_desde_zoom INT
+);
