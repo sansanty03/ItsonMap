@@ -586,7 +586,7 @@ LV900.bindTooltip("LV900", { permanent: true, direction: "center", className: "l
 LV1500.bindTooltip("LV1500", { permanent: true, direction: "center", className: "label-tooltip" });
 LV1100.bindTooltip("LV1100", { permanent: true, direction: "center", className: "label-tooltip" });
 CafeteriaAl.bindTooltip("CAFETERIAAL", { permanent: true, direction: "center", className: "label-tooltip" });
-RegistroEsc.bindTooltip("REGISTROESC", { permanent: true, direction: "center", className: "label-tooltip" });
+RegistroEsc.bindTooltip("REGISTRO <Br> ESCOLAR", { permanent: true, direction: "center", className: "label-tooltip" });
 Tutorias.bindTooltip("TUTORIAS", { permanent: true, direction: "center", className: "label-tooltip" });
 Biblioteca.bindTooltip("BIBLIOTECA", { permanent: true, direction: "center", className: "label-tooltip" });
 polideportivo.bindTooltip("POLIDEPORTIVO", { permanent: true, direction: "center", className: "label-tooltip" });
@@ -601,9 +601,9 @@ difusion.bindTooltip("DIFUSION", { permanent: true, direction: "center", classNa
 cultural.bindTooltip("CULTURAL", { permanent: true, direction: "center", className: "label-tooltip" });
 cafeteria2.bindTooltip("CAFETERIA2", { permanent: true, direction: "center", className: "label-tooltip" });
 libreria.bindTooltip("LIBRERIA", { permanent: true, direction: "center", className: "label-tooltip" });
-beisbolCancha.bindTooltip("BEISBOLCANCHA", { permanent: true, direction: "center", className: "label-tooltip" });
-beisbolCanchaChica.bindTooltip("BEISBOLCANCHACHICA", { permanent: true, direction: "center", className: "label-tooltip" });
-futbolCancha1.bindTooltip("FUTBOLCANCHA1", { permanent: true, direction: "center", className: "label-tooltip" });
+beisbolCancha.bindTooltip("CANCHA <br> BEISBOL", { permanent: true, direction: "center", className: "label-tooltip" });
+beisbolCanchaChica.bindTooltip("CANCHA <br> BEISBOL", { permanent: true, direction: "center", className: "label-tooltip" });
+futbolCancha1.bindTooltip("CANCHA <br> FUTBOL", { permanent: true, direction: "center", className: "label-tooltip" });
 futbolCancha2.bindTooltip("FUTBOLCANCHA2", { permanent: true, direction: "center", className: "label-tooltip" });
 ateltismoCancha.bindTooltip("ATELTISMOCANCHA", { permanent: true, direction: "center", className: "label-tooltip" });
 tennisCancha1.bindTooltip("TENNISCANCHA1", { permanent: true, direction: "center", className: "label-tooltip" });
