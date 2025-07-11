@@ -544,9 +544,9 @@ var LeafIcon = L.Icon.extend({
 
 var bebeIcon = new LeafIcon({iconUrl: 'ImgBebede.png'});
 
-var bañosHombresIcon = new LeafIcon({iconUrl: 'bañosHombres.png'});
-var bañosMujeresIcon = new LeafIcon({iconUrl: 'bañosMujeres.png'});
-var bañosMixtIcon = new LeafIcon({iconUrl: 'bañosHombresMujeres.png'});
+var baniosHombresIcon = new LeafIcon({iconUrl: 'baniosHombres.png'});
+var baniosMujeresIcon = new LeafIcon({iconUrl: 'baniosMujeres.png'});
+var baniosMixtIcon = new LeafIcon({iconUrl: 'baniosHombresMujeres.png'});
 var entradasIcon =  new LeafIcon({iconUrl: 'entradas.png'});
 
 
@@ -648,35 +648,35 @@ var marca = L.marker(position,{icon: entradasIcon}).addTo(map);
 entradasLugares.push(marca);
 });
 
-var BañosHomPos = [[27.492639699566183, -109.97056559987155]];
+var BaniosHomPos = [[27.492639699566183, -109.97056559987155]];
 
-var BañosMujPos = [[27.492639699566183, -109.97045328761783]];
+var BaniosMujPos = [[27.492639699566183, -109.97045328761783]];
 
-var BañosMixPos = [[27.4920430315848, -109.96841508567009],[27.492711994002647,-109.9694783255989],
+var BaniosMixPos = [[27.4920430315848, -109.96841508567009],[27.492711994002647,-109.9694783255989],
                     [27.49204214767687,-109.97026706257616],[27.49204097424756,-109.97052838482941],
                     [27.49327435874173,-109.97038405999542],[27.491767091351903,-109.97145581255114]]
                     ;
 
-var bañosHombres = [];
-var bañosMujeres = [];
-var bañosHomMuje = [];
+var baniosHombres = [];
+var baniosMujeres = [];
+var baniosHomMuje = [];
 
-BañosHomPos.forEach(function(position){
-    var marca = L.marker(position,{icon: bañosHombresIcon}).addTo(map);
+BaniosHomPos.forEach(function(position){
+    var marca = L.marker(position,{icon: baniosHombresIcon}).addTo(map);
     marca.setOpacity(0);
-    bañosHombres.push(marca);
+    baniosHombres.push(marca);
     });
 
-BañosMujPos.forEach(function(position){
-    var marca = L.marker(position,{icon: bañosMujeresIcon}).addTo(map);
+BaniosMujPos.forEach(function(position){
+    var marca = L.marker(position,{icon: baniosMujeresIcon}).addTo(map);
     marca.setOpacity(0);
-    bañosMujeres.push(marca);
+    baniosMujeres.push(marca);
     });
 
-BañosMixPos.forEach(function(position){
-    var marca = L.marker(position,{icon: bañosMixtIcon}).addTo(map);
+BaniosMixPos.forEach(function(position){
+    var marca = L.marker(position,{icon: baniosMixtIcon}).addTo(map);
     marca.setOpacity(0);
-    bañosHomMuje.push(marca);
+    baniosHomMuje.push(marca);
     });
 
 
@@ -685,9 +685,9 @@ BañosMixPos.forEach(function(position){
     var markerAyk = L.marker([27.49265, -109.971157],{opacity:0,iconSize:3 }).addTo(map);
 
 
-/*var marker = L.marker([27.493, -109.9711]).addTo(map); // Añadir un solo marcador en la posición específica
+/*var marker = L.marker([27.493, -109.9711]).addTo(map); // Aniadir un solo marcador en la posición específica
 
-var marker2 = L.marker([27.493943376287845, -109.9721529487552]).addTo(map); // Añadir un solo marcador en la posición específica
+var marker2 = L.marker([27.493943376287845, -109.9721529487552]).addTo(map); // Aniadir un solo marcador en la posición específica
 
 
 

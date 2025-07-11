@@ -80,9 +80,9 @@ var footer = document.querySelector('footer');
 document.addEventListener("DOMContentLoaded", function() {
 const estadoOriginal = new Map();
 var bebe = false;
-var bañoBool = false;
+var banioBool = false;
 var bebederos = document.getElementById('BebederosBtn');
-var bañosB = document.getElementById('BañosBtn');
+var baniosB = document.getElementById('BaniosBtn');
 var rutaBtn = document.getElementById('RutasBtn');
 var LocalizarBtn = document.getElementById('LocalizarBtn');
 var EtiquetasLugares = document.getElementsByClassName("label-tooltip");
@@ -158,7 +158,7 @@ function quitarAcentos(text) {
         .replace(/[íïìî]/g, 'i')
         .replace(/[óöòô]/g, 'o')
         .replace(/[úüùû]/g, 'u')
-        .replace(/[ñ]/g, 'n');
+        .replace(/[ni]/g, 'n');
 }
 
 function transformarTexto(texto) {
@@ -245,63 +245,63 @@ function mostrarBebederos(){
 }
 
 function ocultarBebederos() {
-    if(!bebe && !bañoBool ){
+    if(!bebe && !banioBool ){
         footer.style.visibility = 'hidden';
     }
 }
 
-bañosB.addEventListener('click', function () {
+baniosB.addEventListener('click', function () {
 
     //obtenerPosicion();
-    mostrarBaños();
+    mostrarBanios();
 
 });
 
-function mostrarBaños(){
-    if(!bañoBool){
+function mostrarBanios(){
+    if(!banioBool){
         var i = 0;
-    for (var baño in bañosHombres) {
-        mark = bañosHombres[i];
+    for (var banio in baniosHombres) {
+        mark = baniosHombres[i];
         mark.setOpacity(1);
         i++;
     }
     var i = 0;
-    for (var baño in bañosMujeres) {
-        mark = bañosMujeres[i];
+    for (var banio in baniosMujeres) {
+        mark = baniosMujeres[i];
         mark.setOpacity(1);
         i++;
     }
     var i = 0;
-    for (var baño in bañosHomMuje) {
-        mark = bañosHomMuje[i];
+    for (var banio in baniosHomMuje) {
+        mark = baniosHomMuje[i];
         mark.setOpacity(1);
         i++;
     }
 
-    bañoBool = !bañoBool;
+    banioBool = !banioBool;
     footer.style.visibility = 'visible';
     caso = 2;
     } 
-    else if(bañoBool){
+    else if(banioBool){
         var i = 0;
-        for (var baño in bañosHombres) {
-            mark = bañosHombres[i];
+        for (var banio in baniosHombres) {
+            mark = baniosHombres[i];
             mark.setOpacity(0);
             i++;
         }
         var i = 0;
-        for (var baño in bañosMujeres) {
-        mark = bañosMujeres[i];
+        for (var banio in baniosMujeres) {
+        mark = baniosMujeres[i];
         mark.setOpacity(0);
         i++;
         }
         var i = 0;
-        for (var baño in bañosHomMuje) {
-        mark = bañosHomMuje[i];
+        for (var banio in baniosHomMuje) {
+        mark = baniosHomMuje[i];
         mark.setOpacity(0);
         i++;
         }
-        bañoBool = !bañoBool;
+        banioBool = !banioBool;
         ocultarBebederos();
     }
 
@@ -387,8 +387,8 @@ map.on('zoomend', function() {
             }
         });
     }
-    if(bañoBool){
-            bañosHombres.forEach(function(marker) {
+    if(banioBool){
+            baniosHombres.forEach(function(marker) {
                 if (currentZoom < 15) {
                     marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
                 } else {
@@ -397,7 +397,7 @@ map.on('zoomend', function() {
             
                     var iconSize = [5 * scaleFactor, 5* scaleFactor];
                     marker.setIcon(L.icon({
-                        iconUrl: 'bañosHombres.png',
+                        iconUrl: 'baniosHombres.png',
                         
                         iconSize: iconSize,
                         iconAnchor: [iconSize[0] / 2, iconSize[1]],
@@ -408,7 +408,7 @@ map.on('zoomend', function() {
                 }
             });
 
-            bañosMujeres.forEach(function(marker) {
+            baniosMujeres.forEach(function(marker) {
                 if (currentZoom < 15) {
                     marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
                 } else {
@@ -417,7 +417,7 @@ map.on('zoomend', function() {
             
                     var iconSize = [5 * scaleFactor, 5* scaleFactor];
                     marker.setIcon(L.icon({
-                        iconUrl: 'bañosMujeres.png',
+                        iconUrl: 'baniosMujeres.png',
                         
                         iconSize: iconSize,
                         iconAnchor: [iconSize[0] / 2, iconSize[1]],
@@ -428,7 +428,7 @@ map.on('zoomend', function() {
                 }
             });
 
-            bañosHomMuje.forEach(function(marker) {
+            baniosHomMuje.forEach(function(marker) {
                 if (currentZoom < 15) {
                     marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
                 } else {
@@ -437,7 +437,7 @@ map.on('zoomend', function() {
             
                     var iconSize = [5 * scaleFactor, 5* scaleFactor];
                     marker.setIcon(L.icon({
-                        iconUrl: 'bañosHombresMujeres.png',
+                        iconUrl: 'baniosHombresMujeres.png',
                         
                         iconSize: iconSize,
                         iconAnchor: [iconSize[0] / 2, iconSize[1]],
