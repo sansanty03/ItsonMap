@@ -57,7 +57,6 @@ fetch('https://web-production-b0921.up.railway.app/poligonos')
         className: 'label-tooltip'
       });
 
-      // Si vas a trabajar con ListPoligon
       ListPoligon.push(poligono);
       
       const claveOriginal = transformarTexto(p.nombre);
@@ -83,11 +82,11 @@ fetch('https://web-production-b0921.up.railway.app/poligonos')
 });
 
 const iconos = {
-  'bebedero': new LeafIcon({ iconUrl: 'ImgBebede.png' }),
-  'banio_hombre': new LeafIcon({ iconUrl: 'baniosHombres.png' }),
-  'banio_mujer': new LeafIcon({ iconUrl: 'baniosMujeres.png' }),
-  'banio_mix': new LeafIcon({ iconUrl: 'baniosHombresMujeres.png' }),
-  'entrada': new LeafIcon({ iconUrl: 'entradas.png' })
+  'bebedero': new LeafIcon({ iconUrl: 'imagenes/ImgBebede.png' }),
+  'banio_hombre': new LeafIcon({ iconUrl: 'imagenes/baniosHombres.png' }),
+  'banio_mujer': new LeafIcon({ iconUrl: 'imagenes/baniosMujeres.png' }),
+  'banio_mix': new LeafIcon({ iconUrl: 'imagenes/baniosHombresMujeres.png' }),
+  'entrada': new LeafIcon({ iconUrl: 'imagenes/entradas.png' })
 
 };
 
@@ -96,11 +95,10 @@ fetch('https://web-production-b0921.up.railway.app/marcadores')
   .then(marcadores => {
     marcadores.forEach(m => {
       const icono = iconos[m.tipo.toLowerCase()];
-      if (!icono) return; // Si no hay icono definido, lo ignoramos
+      if (!icono) return; 
 
       const marker = L.marker([m.lat, m.lng], { icon: icono }).addTo(map);
-      marker.setOpacity(0); // Igual que el comportamiento original
-
+      marker.setOpacity(0); 
       if (m.tipo === 'bebedero') {
         Bebederos.push(marker);
         BebederosPos.push([m.lat, m.lng]); 

@@ -6,39 +6,9 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
 
 var popup = L.popup();
 
-var bebe = false;
-var banioBool = false;
-var bebederos = document.getElementById('BebederosBtn');
-var baniosB = document.getElementById('BañosBtn');
-var rutaBtn = document.getElementById('RutasBtn');
-var LocalizarBtn = document.getElementById('LocalizarBtn');
-var EtiquetasLugares = document.getElementsByClassName("label-tooltip");
-
-var footer = document.querySelector('footer');
-
-var prom = [];
-
-var caso = 0;  
-
 let PosLocalizada = false;
 let enItson = false;
 let PosActual=[];
-
-var ListPoligon = [];
-const Bebederos = [];    
-const BebederosPos = [];    
-var baniosHombres = [];
-var baniosMujeres = [];
-var baniosHomMuje = [];
-var baniosHombresPos = [];
-var baniosMujeresPos = [];
-var baniosHomMujePos = [];
-var entradasLugares = [];
-
-const poligonosPorNombre = new Map(); 
-const estadoOriginal = new Map();     
-const poligonosPorId = new Map();     
-
 
 function obtenerPosicion() {
     map.locate({ setView: true, maxZoom: 30 });
@@ -77,6 +47,7 @@ function obtenerPosicionAsync() {
     });
 }
 
+
 function onLocationFound(e) {
     markerPos.remove();
     console.log("Coordenadas actualizadas:", e.latlng.lat, e.latlng.lng);
@@ -100,6 +71,86 @@ function dentroItson(lat, lon){
 
 }
 
+map.on('locationfound', onLocationFound);
+
+map.on('locationerror', onLocationError);
+
+
+var footer = document.querySelector('footer');
+document.addEventListener("DOMContentLoaded", function() {
+const estadoOriginal = new Map();
+var bebe = false;
+var banioBool = false;
+var bebederos = document.getElementById('BebederosBtn');
+var baniosB = document.getElementById('BaniosBtn');
+var rutaBtn = document.getElementById('RutasBtn');
+var LocalizarBtn = document.getElementById('LocalizarBtn');
+var EtiquetasLugares = document.getElementsByClassName("label-tooltip");
+var prom = [];
+
+var caso = 0;
+
+var poligonos = {
+    "av1800": av1800,
+    "av1700": av1700,
+    "av1600": av1600,
+    "av1500": av1500,
+    "av1400": av1400,
+    "av1300": av1300,
+    "av1200": av1200,
+    "av1100": av1100,
+    "av1000": av1000,
+    "av900": av900,
+    "av800": av800,
+    "av700": av700,
+    "av600": av600,
+    "av500": av500,
+    "av400": av400,
+    "av300": av300,
+    "av200": av200,
+    "lv100": LV100,
+    "lv200": LV200,
+    "lv300": LV300,
+    "lv500": LV500,
+    "lv700": LV700,
+    "lv800": LV800,
+    "lv900": LV900,
+    "lv1500": LV1500,
+    "lv1100": LV1100,
+    "cafeteriaal": CafeteriaAl,
+    "registroesc": RegistroEsc,
+    "tutorias": Tutorias,
+    "biblioteca": Biblioteca,
+    "polideportivo": polideportivo,
+    "videoconferencias": VideoConferencias,
+    "cisco": cisco,
+    "cad": cad,
+    "avb400": avb400,
+    "aulamagna": aulaMagna,
+    "cafeteriakiawa": cafeteriaKiawa,
+    "difusion": difusion,
+    "cultural": cultural,
+    "cafeteria2": cafeteria2,
+    "libreria": libreria,
+    "beisbolcancha": beisbolCancha,
+    "beisbolcanchachica": beisbolCanchaChica,
+    "futbolcancha1": futbolCancha1,
+    "futbolcancha2": futbolCancha2,
+    "ateltismocancha": ateltismoCancha,
+    "tenniscancha1": tennisCancha1,
+    "tenniscancha2": tennisCancha2,
+    "tenniscancha3": tennisCancha3,
+    "basquetgym": basquetGym,
+    "albercaolimpca": albercaOlimpca,
+    "albercachica": albercaChica
+};
+
+
+for (var nombre in poligonos) {
+        estadoOriginal.set(nombre, poligonos[nombre].options.fillColor );
+      //  console.log(nombre);     
+}
+
 function quitarAcentos(text) {
     return text
         .replace(/[áäàâ]/g, 'a')
@@ -115,70 +166,45 @@ function transformarTexto(texto) {
     
     const textoTransformado = textoSinAcento.toLowerCase().replace(/\s/, '');
     return textoTransformado;
-}
-
-function generarAlias(nombre) {
-  const base = transformarTexto(nombre);
-  const palabras = base.split(' ');
-
-  const combinaciones = new Set();
-
-  combinaciones.add(base);                 
-  combinaciones.add(palabras.join(''));        
-  combinaciones.add(palabras.reverse().join('')); 
-  combinaciones.add(palabras.join(' '));      
-
-  return Array.from(combinaciones);
-}
-
-function colorOriginal() {
-  for (let [nombre, poligono] of poligonosPorNombre.entries()) {
-    if (estadoOriginal.has(nombre)) {
-      poligono.setStyle({ fillColor: estadoOriginal.get(nombre) });
-    }
   }
-}
 
-map.on('locationfound', onLocationFound);
+function colorOriginal(){
+    for (var nombre in poligonos) {
+        poligonos[nombre].setStyle({ fillColor: estadoOriginal.get(nombre) });
+       
+    } 
+}  
+  
+function edificio(){
 
-map.on('locationerror', onLocationError);
-
-
-document.addEventListener("DOMContentLoaded", function() {
-
-function edificio() {
-  const Busqueda = document.getElementById("inputBusqueda").value;
-  const inputBusqueda = transformarTexto(Busqueda);
-
-  // Ocultar todos los tooltips
-  ListPoligon.forEach(p => {
-    if (p.closeTooltip) p.closeTooltip();
-  });
-
-  colorOriginal(); 
-
-  if (poligonosPorNombre.has(inputBusqueda)) {
-    const poligono = poligonosPorNombre.get(inputBusqueda);
-    poligono.setStyle({ fillColor: 'green' });
-
-    const coordenadasPoligono = poligono.getLatLngs()[0];
-
-    let sumaLat = 0, sumaLng = 0;
-    for (const coord of coordenadasPoligono) {
-      sumaLat += coord.lat;
-      sumaLng += coord.lng;
+    var Busqueda = document.getElementById("inputBusqueda").value;
+    var inputBusqueda = transformarTexto(Busqueda);
+   colorOriginal();
+    if(poligonos.hasOwnProperty(inputBusqueda)){ 
+        var poligono = poligonos[inputBusqueda];
+        poligono.setStyle({ fillColor: 'green' });
+       const coordenadasPoligono = poligono.getLatLngs();
+    
+    let sumaLatitud = 0;
+    let sumaLongitud = 0;
+    
+    for (const coordenada of coordenadasPoligono[0]) {
+        sumaLatitud += coordenada.lat;
+        sumaLongitud += coordenada.lng;
     }
-
-    const latitud = sumaLat / coordenadasPoligono.length;
-    const longitud = sumaLng / coordenadasPoligono.length;
-    prom = [latitud, longitud];
+    
+    const promedioLatitud = sumaLatitud / coordenadasPoligono[0].length;
+    const promedioLongitud = sumaLongitud / coordenadasPoligono[0].length;
+    
+    prom = [promedioLatitud, promedioLongitud];
+    
+    const latitud = prom[0];
+    const longitud = prom[1];
+    
+    const coordenadas = new L.LatLng(latitud, longitud);
     caso = 1;
-
-    map.flyTo([latitud, longitud], 18);
-
-    // Mostrar solo el tooltip del polígono buscado
-    poligono.openTooltip();
-  }
+    map.flyTo(coordenadas,18);
+    }
 }
 
 inputBusqueda.addEventListener('keydown', function(event) {
@@ -234,7 +260,6 @@ baniosB.addEventListener('click', function () {
 function mostrarBanios(){
     if(!banioBool){
         var i = 0;
-    console.log(baniosHombres);
     for (var banio in baniosHombres) {
         mark = baniosHombres[i];
         mark.setOpacity(1);
@@ -282,6 +307,7 @@ function mostrarBanios(){
 
 }
 
+
 rutaBtn.addEventListener('click', async function () {
     try {
         await obtenerPosicionAsync(); 
@@ -295,6 +321,11 @@ rutaBtn.addEventListener('click', async function () {
         // podrías mostrar un mensaje al usuario
     }
 });
+
+
+
+
+
 
 function rutasEspecificas(){
     if(PosLocalizada){
@@ -339,10 +370,10 @@ map.on('zoomend', function() {
     if (bebe) {
         Bebederos.forEach(function(marker) {
             if (currentZoom < 15) {
-                marker.setOpacity(0); 
+                marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
             } else {
-                marker.setOpacity(1); 
-                var scaleFactor = Math.pow(1.5, currentZoom - 12); 
+                marker.setOpacity(1); // Mostrar marcador si el zoom es mayor o igual a 12
+                var scaleFactor = Math.pow(1.5, currentZoom - 12); // Ajustar escala del icono
         
                 var iconSize = [5 * scaleFactor, 5* scaleFactor];
                 marker.setIcon(L.icon({
@@ -359,10 +390,10 @@ map.on('zoomend', function() {
     if(banioBool){
             baniosHombres.forEach(function(marker) {
                 if (currentZoom < 15) {
-                    marker.setOpacity(0);
+                    marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
                 } else {
-                    marker.setOpacity(1); 
-                    var scaleFactor = Math.pow(1.5, currentZoom - 12); 
+                    marker.setOpacity(1); // Mostrar marcador si el zoom es mayor o igual a 12
+                    var scaleFactor = Math.pow(1.5, currentZoom - 12); // Ajustar escala del icono
             
                     var iconSize = [5 * scaleFactor, 5* scaleFactor];
                     marker.setIcon(L.icon({
@@ -379,10 +410,10 @@ map.on('zoomend', function() {
 
             baniosMujeres.forEach(function(marker) {
                 if (currentZoom < 15) {
-                    marker.setOpacity(0); 
+                    marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
                 } else {
-                    marker.setOpacity(1); 
-                    var scaleFactor = Math.pow(1.5, currentZoom - 12); 
+                    marker.setOpacity(1); // Mostrar marcador si el zoom es mayor o igual a 12
+                    var scaleFactor = Math.pow(1.5, currentZoom - 12); // Ajustar escala del icono
             
                     var iconSize = [5 * scaleFactor, 5* scaleFactor];
                     marker.setIcon(L.icon({
@@ -399,10 +430,10 @@ map.on('zoomend', function() {
 
             baniosHomMuje.forEach(function(marker) {
                 if (currentZoom < 15) {
-                    marker.setOpacity(0);
+                    marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
                 } else {
-                    marker.setOpacity(1); 
-                    var scaleFactor = Math.pow(1.5, currentZoom - 12);
+                    marker.setOpacity(1); // Mostrar marcador si el zoom es mayor o igual a 12
+                    var scaleFactor = Math.pow(1.5, currentZoom - 12); // Ajustar escala del icono
             
                     var iconSize = [5 * scaleFactor, 5* scaleFactor];
                     marker.setIcon(L.icon({
@@ -421,9 +452,9 @@ map.on('zoomend', function() {
     if(!enItson){
     entradasLugares.forEach(function(marker) {
         if (currentZoom < 15) {
-            marker.setOpacity(0);
+            marker.setOpacity(0); // Ocultar marcador si el zoom es menor a 12
         } else {
-            marker.setOpacity(1); 
+            marker.setOpacity(1); // Mostrar marcador si el zoom es mayor o igual a 12
             var scaleFactor = Math.pow(1.5, currentZoom - 12); // Ajustar escala del icono
 
             var iconSize = [5 * scaleFactor, 5* scaleFactor];
