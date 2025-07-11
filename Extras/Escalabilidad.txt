@@ -1,0 +1,4 @@
+Guardar Planteles con sus coordenadas
+Guardar aulas
+pagina externa para agregar o modificar o eliminar elementos
+mejora de diseño
