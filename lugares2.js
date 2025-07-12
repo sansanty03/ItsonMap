@@ -42,7 +42,7 @@ var ITSON = L.polygon(
 }
 ).addTo(map);
 
-fetch('https://web-production-b0921.up.railway.app/poligonos')
+fetch('https://web-production-b0921.up.railway.app/poligonos?plantel=${plantel}')
   .then(response => response.json())
   .then(data => {
     data.forEach(p => {
@@ -90,7 +90,7 @@ const iconos = {
 
 };
 
-fetch('https://web-production-b0921.up.railway.app/marcadores')
+fetch('https://web-production-b0921.up.railway.app/marcadores?plantel=${plantel}')
   .then(response => response.json())
   .then(marcadores => {
     marcadores.forEach(m => {

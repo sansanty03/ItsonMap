@@ -6,6 +6,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
 
 var popup = L.popup();
 
+const plantel = "ITSON NAINARI";
+
 var bebe = false;
 var banioBool = false;
 var bebederos = document.getElementById('BebederosBtn');
