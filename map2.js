@@ -6,7 +6,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
 
 var popup = L.popup();
 
-const plantel = "ITSON NAINARI";
+const plantel = "ITSON_NAINARI";
 
 var bebe = false;
 var banioBool = false;
@@ -15,6 +15,7 @@ var baniosB = document.getElementById('BañosBtn');
 var rutaBtn = document.getElementById('RutasBtn');
 var LocalizarBtn = document.getElementById('LocalizarBtn');
 var EtiquetasLugares = document.getElementsByClassName("label-tooltip");
+var ubiBtn = document.getElementById("UbicacionBtn");
 
 var footer = document.querySelector('footer');
 
@@ -32,10 +33,11 @@ const BebederosPos = [];
 var baniosHombres = [];
 var baniosMujeres = [];
 var baniosHomMuje = [];
-var baniosHombresPos = [];
-var baniosMujeresPos = [];
 var baniosHomMujePos = [];
 var entradasLugares = [];
+const Aulas = []; 
+const AulasPorNombre = new Map();
+
 
 const poligonosPorNombre = new Map(); 
 const estadoOriginal = new Map();     
@@ -75,6 +77,26 @@ function obtenerPosicionAsync() {
 
         map.locate({ setView: true, maxZoom: 30 });
     });
+}
+
+function obtenerEdificioDeAula(nombreAula) {
+  const aula = AulasPorNombre.get(nombreAula.toLowerCase());
+  if (aula) {
+    return aula.edificio;
+  } else {
+    console.warn(`No se encontró el aula ${nombreAula}`);
+    return null;
+  }
+}
+
+function obtenerLatLonDeAula(nombreAula) {
+  const aula = AulasPorNombre.get(nombreAula.toLowerCase());
+  if (aula) {
+    return { lat: aula.lat, lng: aula.lng };
+  } else {
+    console.warn(`No se encontró el aula ${nombreAula}`);
+    return null;
+  }
 }
 
 function onLocationFound(e) {
@@ -159,8 +181,8 @@ map.on('locationerror', onLocationError);
 
 document.addEventListener("DOMContentLoaded", function() {
 
-function edificio() {
-  const Busqueda = document.getElementById("inputBusqueda").value;
+function edificio(nombreEdifcio) {
+  const Busqueda = nombreEdifcio;
   const inputBusqueda = transformarTexto(Busqueda);
 
   ocultarEtiquetas();
@@ -186,14 +208,29 @@ function edificio() {
 
     // Mostrar solo el tooltip del polígono buscado
     poligono.openTooltip();
+    setTimeout(() => {
+     mostrarEtiquetas();
+    }, 7000);
   }
+}
+
+function aulaBusqueda(nombreAula){
+    const edificio = obtenerEdificioDeAula(nombreAula);
+    const coords = obtenerLatLonDeAula(nombreAula);
+    edificio(edificio);
+    prom = [coords.lat, coords.lng];
+    caso = 1;
+    map.flyTo([coords.lat, coords.lng], 18);
+    rutaBtn.style.visibility = 'visible';
+
 }
 
 inputBusqueda.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
        // event.preventDefault(); 
-        edificio();
-        footer.style.visibility = 'visible';
+        var nombreEdifcio = document.getElementById("inputBusqueda").value;
+        edificio(nombreEdifcio);
+        rutaBtn.style.visibility = 'visible';
     }
 });
 
@@ -210,7 +247,7 @@ function mostrarBebederos(){
         i++;
     }
     bebe = !bebe;
-    footer.style.visibility = 'visible';
+    rutaBtn.style.visibility = 'visible';
     ocultarEtiquetas();
     caso = 2;
     } 
@@ -229,7 +266,7 @@ function mostrarBebederos(){
 
 function ocultarBebederos() {
     if(!bebe && !banioBool ){
-        footer.style.visibility = 'hidden';
+        rutaBtn.style.visibility = 'hidden';
         mostrarEtiquetas()
     }
 }
@@ -237,7 +274,6 @@ function ocultarBebederos() {
 baniosB.addEventListener('click', function () {
 
     //obtenerPosicion();
-    
     mostrarBanios();
 
 });
@@ -264,9 +300,9 @@ function mostrarBanios(){
     }
 
     banioBool = !banioBool;
-    footer.style.visibility = 'visible';
+    rutaBtn.style.visibility = 'visible';
     ocultarEtiquetas();
-    caso = 2;
+    caso = 3;
     } 
     else if(banioBool){
         var i = 0;
@@ -296,31 +332,23 @@ function mostrarBanios(){
 rutaBtn.addEventListener('click', async function () {
     try {
         await obtenerPosicionAsync(); 
+        if(enItson){
         if (caso == 2) {
             bebedeRut();
+        } else if (caso == 3) {
+            baniosRut();
         } else if (caso == 1) {
             rutas(PosActual[0], PosActual[1], prom[0], prom[1]);
+        }
+        }
+        else{
+             
         }
     } catch (e) {
         console.log("No se pudo obtener la ubicación.");
         
     }
 });
-
-function rutasEspecificas(){
-    if(PosLocalizada){
-        if(caso == 2){
-            bebedeRut();
-        }
-        else if(caso == 1){
-        rutas(PosActual[0],PosActual[1], prom[0],prom[1]);
-        }
-    }
-    else{
-        obtenerPosicion();
-        rutasEspecificas();
-    }
-}
 
 function bebedeRut(){
     var BebederoPun;
@@ -344,6 +372,28 @@ function bebedeRut(){
 
 }
 
+function baniosRut() {
+    var BaniosPun;
+    var distancias= [];
+    for (let g = 0; g < baniosHomMujePos.length; g++) {
+      var distan = calcularDistancia(baniosHomMujePos[g][0], baniosHomMujePos[g][1]  ,PosActual[0],PosActual[1]);
+      distancias.push(distan);
+    }
+    var distanMinima = Infinity;
+    for (let g = 0; g < baniosHomMujePos.length; g++) {
+      if (distancias[g] <= distanMinima) {
+        BaniosPun = g; 
+        distanMinima = distancias[g];
+      }
+    }
+    rutas(PosActual[0],PosActual[1],baniosHomMujePos[BaniosPun][0], baniosHomMujePos[BaniosPun][1]);
+}
+
+ubiBtn.addEventListener('click', function () {
+
+    obtenerPosicionAsync();
+
+});
 
 map.on('zoomend', function() {
     var currentZoom = map.getZoom();
@@ -435,7 +485,7 @@ map.on('zoomend', function() {
             marker.setOpacity(0);
         } else {
             marker.setOpacity(1); 
-            var scaleFactor = Math.pow(1.5, currentZoom - 12); // Ajustar escala del icono
+            var scaleFactor = Math.pow(1.5, currentZoom - 12);
 
             var iconSize = [5 * scaleFactor, 5* scaleFactor];
             marker.setIcon(L.icon({

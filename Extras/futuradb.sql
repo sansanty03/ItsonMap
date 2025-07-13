@@ -40,6 +40,16 @@ CREATE TABLE marcadores (
     FOREIGN KEY (planteles_id) REFERENCES planteles(id)
 );
 
+CREATE TABLE aulas(
+	id INT PRIMARY KEY auto_increment,
+    nombre VARCHAR(50) NOT NULL,
+    lat DECIMAL(9,6) NOT NULL,
+    lng DECIMAL(9,6) NOT NULL,
+    activo BOOLEAN DEFAULT TRUE,
+    poligono_id INT NOT NULL,
+    FOREIGN KEY (poligono_id) REFERENCES poligonos(id)
+);
+
 INSERT INTO planteles (nombre, coordenadas) VALUES 
 ("ITSON NAINARI", JSON_ARRAY(
     JSON_ARRAY(27.491253914310835, -109.97349934058605),
@@ -655,6 +665,13 @@ INSERT INTO poligonos (nombre, coordenadas, categoria_id, planteles_id) VALUES
     JSON_ARRAY(27.491955367858235,-109.97291864951526)
 ), 7, 1);
 
+INSERT INTO aulas(nombre, lat, lng, poligono_id) values
+("av1821",27.49423452369214, -109.97215194146008,1),
+("av1822",27.494229765703576, -109.97226465667912,1),
+("av1823",27.49423452369214 -109.97243104581194,1),
+("av1621", 27.493454210818093 ,-109.97190504145655,3),
+("av1623", 27.493449452795794, -109.97181916319444, 3),
+("av1624",27.49344469477329, -109.9717225501496,3);
 
 INSERT INTO marcadores (tipo, lat, lng, iconUrl, visible_desde_zoom, activo, planteles_id) VALUES
 ('bebedero', 27.492296, -109.971695, 'ImgBebede.png', 15, TRUE, 1),
@@ -676,16 +693,16 @@ INSERT INTO marcadores (tipo, lat, lng, iconUrl, visible_desde_zoom, activo, pla
 ('bebedero', 27.491582, -109.972461, 'ImgBebede.png', 15, TRUE, 1),
 ('bebedero', 27.494142, -109.973125, 'ImgBebede.png', 15, TRUE, 1),
 
-('baño_hombre', 27.492640, -109.970566, 'bañosHombres.png', 15, TRUE, 1),
+('banio_hombre', 27.492640, -109.970566, 'baniosHombres.png', 15, TRUE, 1),
 
-('baño_mujer', 27.492640, -109.970453, 'bañosMujeres.png', 15, TRUE, 1),
+('banio_mujer', 27.492640, -109.970453, 'baniosMujeres.png', 15, TRUE, 1),
 
-('baño_mix', 27.492043, -109.968415, 'bañosHombresMujeres.png', 15, TRUE, 1),
-('baño_mix', 27.492712, -109.969478, 'bañosHombresMujeres.png', 15, TRUE, 1),
-('baño_mix', 27.492042, -109.970267, 'bañosHombresMujeres.png', 15, TRUE, 1),
-('baño_mix', 27.492041, -109.970528, 'bañosHombresMujeres.png', 15, TRUE, 1),
-('baño_mix', 27.493274, -109.970384, 'bañosHombresMujeres.png', 15, TRUE, 1),
-('baño_mix', 27.491767, -109.971456, 'bañosHombresMujeres.png', 15, TRUE, 1),
+('banio_mix', 27.492043, -109.968415, 'baniosHombresMujeres.png', 15, TRUE, 1),
+('banio_mix', 27.492712, -109.969478, 'baniosHombresMujeres.png', 15, TRUE, 1),
+('banio_mix', 27.492042, -109.970267, 'baniosHombresMujeres.png', 15, TRUE, 1),
+('banio_mix', 27.492041, -109.970528, 'baniosHombresMujeres.png', 15, TRUE, 1),
+('banio_mix', 27.493274, -109.970384, 'baniosHombresMujeres.png', 15, TRUE, 1),
+('banio_mix', 27.491767, -109.971456, 'baniosHombresMujeres.png', 15, TRUE, 1),
 
 ('entrada', 27.491280, -109.969749, 'entradas.png', 15, TRUE, 1),
 ('entrada', 27.492227, -109.968184, 'entradas.png', 15, TRUE, 1),

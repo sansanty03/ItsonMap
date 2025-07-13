@@ -104,10 +104,10 @@ fetch(`https://web-production-b0921.up.railway.app/marcadores?plantel=${encodeUR
         BebederosPos.push([m.lat, m.lng]); 
       } else if (m.tipo === 'banio_hombre') {
         baniosHombres.push(marker);
-        baniosHombresPos.push([m.lat, m.lng]);
+        baniosHomMujePos.push([m.lat, m.lng]);
       } else if (m.tipo === 'banio_mujer') {
         baniosMujeres.push(marker);
-        baniosMujeresPos.push([m.lat, m.lng]);
+        baniosHomMujePos.push([m.lat, m.lng]);
       } else if (m.tipo === 'banio_mix') {
         baniosHomMuje.push(marker);
         baniosHomMujePos.push([m.lat, m.lng]);
