@@ -141,6 +141,21 @@ function colorOriginal() {
   }
 }
 
+function ocultarEtiquetas(){
+    ListPoligon.forEach(p => {
+    if (p.closeTooltip) p.closeTooltip();
+  });
+
+  colorOriginal(); 
+}
+
+function mostrarEtiquetas() {
+  ListPoligon.forEach(p => {
+    if (p.openTooltip) p.openTooltip();
+  });
+}
+
+
 map.on('locationfound', onLocationFound);
 
 map.on('locationerror', onLocationError);
@@ -152,12 +167,7 @@ function edificio() {
   const Busqueda = document.getElementById("inputBusqueda").value;
   const inputBusqueda = transformarTexto(Busqueda);
 
-  // Ocultar todos los tooltips
-  ListPoligon.forEach(p => {
-    if (p.closeTooltip) p.closeTooltip();
-  });
-
-  colorOriginal(); 
+  ocultarEtiquetas();
 
   if (poligonosPorNombre.has(inputBusqueda)) {
     const poligono = poligonosPorNombre.get(inputBusqueda);
@@ -205,6 +215,7 @@ function mostrarBebederos(){
     }
     bebe = !bebe;
     footer.style.visibility = 'visible';
+    ocultarEtiquetas();
     caso = 2;
     } 
     else if(bebe){
@@ -223,12 +234,14 @@ function mostrarBebederos(){
 function ocultarBebederos() {
     if(!bebe && !banioBool ){
         footer.style.visibility = 'hidden';
+        mostrarEtiquetas()
     }
 }
 
 baniosB.addEventListener('click', function () {
 
     //obtenerPosicion();
+    
     mostrarBanios();
 
 });
@@ -257,6 +270,7 @@ function mostrarBanios(){
 
     banioBool = !banioBool;
     footer.style.visibility = 'visible';
+    ocultarEtiquetas();
     caso = 2;
     } 
     else if(banioBool){
