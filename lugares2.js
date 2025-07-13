@@ -95,7 +95,6 @@ fetch(`https://web-production-b0921.up.railway.app/marcadores?plantel=${encodeUR
   .then(marcadores => {
     marcadores.forEach(m => {
       const icono = iconos[m.tipo];
-      console.log(m.tipo);
       if (!icono) return; 
 
       const marker = L.marker([m.lat, m.lng], { icon: icono }).addTo(map);
@@ -106,7 +105,6 @@ fetch(`https://web-production-b0921.up.railway.app/marcadores?plantel=${encodeUR
       } else if (m.tipo === 'banio_hombre') {
         baniosHombres.push(marker);
         baniosHombresPos.push([m.lat, m.lng]);
-        console.log(baniosHombres);
       } else if (m.tipo === 'banio_mujer') {
         baniosMujeres.push(marker);
         baniosMujeresPos.push([m.lat, m.lng]);

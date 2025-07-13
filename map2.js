@@ -53,13 +53,12 @@ function obtenerPosicionAsync() {
             map.off('locationerror', onLocationError);
 
             if (markerPos) markerPos.remove();
-            console.log("Coordenadas actualizadas:", e.latlng.lat, e.latlng.lng);
             markerPos = L.marker(e.latlng).addTo(map);
             PosActual = [e.latlng.lat, e.latlng.lng];
             dentroItson(e.latlng.lat, e.latlng.lng);
             markerPos.bindPopup("Tu posición actual").openPopup();
             PosLocalizada = true;
-            resolve(); // ✅ resolvemos la promesa
+            resolve(); 
         }
 
         function onLocationError(e) {
@@ -68,8 +67,7 @@ function obtenerPosicionAsync() {
 
             PosLocalizada = false;
             enItson = false;
-            console.log("falso");
-            reject(); // ❌ rechazamos la promesa
+            reject(); 
         }
 
         map.on('locationfound', onLocationFound);
@@ -81,7 +79,6 @@ function obtenerPosicionAsync() {
 
 function onLocationFound(e) {
     markerPos.remove();
-    console.log("Coordenadas actualizadas:", e.latlng.lat, e.latlng.lng);
     markerPos = L.marker(e.latlng).addTo(map);
     PosActual = [e.latlng.lat, e.latlng.lng];
     dentroItson(e.latlng.lat, e.latlng.lng);
@@ -92,7 +89,6 @@ function onLocationFound(e) {
 function onLocationError(e) {
     PosLocalizada = false;
     enItson = false;
-    console.log("falso");
 }
 
 function dentroItson(lat, lon){
@@ -249,7 +245,6 @@ baniosB.addEventListener('click', function () {
 function mostrarBanios(){
     if(!banioBool){
         var i = 0;
-    console.log(baniosHombres);
     for (var banio in baniosHombres) {
         mark = baniosHombres[i];
         mark.setOpacity(1);
@@ -308,7 +303,7 @@ rutaBtn.addEventListener('click', async function () {
         }
     } catch (e) {
         console.log("No se pudo obtener la ubicación.");
-        // podrías mostrar un mensaje al usuario
+        
     }
 });
 
@@ -362,7 +357,7 @@ map.on('zoomend', function() {
         
                 var iconSize = [5 * scaleFactor, 5* scaleFactor];
                 marker.setIcon(L.icon({
-                    iconUrl: 'ImgBebede.png',
+                    iconUrl: 'imagenes/ImgBebede.png',
                     
                     iconSize: iconSize,
                     iconAnchor: [iconSize[0] / 2, iconSize[1]],
@@ -382,7 +377,7 @@ map.on('zoomend', function() {
             
                     var iconSize = [5 * scaleFactor, 5* scaleFactor];
                     marker.setIcon(L.icon({
-                        iconUrl: 'baniosHombres.png',
+                        iconUrl: 'imagenes/baniosHombres.png',
                         
                         iconSize: iconSize,
                         iconAnchor: [iconSize[0] / 2, iconSize[1]],
@@ -402,7 +397,7 @@ map.on('zoomend', function() {
             
                     var iconSize = [5 * scaleFactor, 5* scaleFactor];
                     marker.setIcon(L.icon({
-                        iconUrl: 'baniosMujeres.png',
+                        iconUrl: 'imagenes/baniosMujeres.png',
                         
                         iconSize: iconSize,
                         iconAnchor: [iconSize[0] / 2, iconSize[1]],
@@ -422,7 +417,7 @@ map.on('zoomend', function() {
             
                     var iconSize = [5 * scaleFactor, 5* scaleFactor];
                     marker.setIcon(L.icon({
-                        iconUrl: 'baniosHombresMujeres.png',
+                        iconUrl: 'imagenes/baniosHombresMujeres.png',
                         
                         iconSize: iconSize,
                         iconAnchor: [iconSize[0] / 2, iconSize[1]],
@@ -444,7 +439,7 @@ map.on('zoomend', function() {
 
             var iconSize = [5 * scaleFactor, 5* scaleFactor];
             marker.setIcon(L.icon({
-                iconUrl: 'entradas.png',
+                iconUrl: 'imagenes/entradas.png',
                 
                 iconSize: iconSize,
                 iconAnchor: [iconSize[0] / 2, iconSize[1]],
