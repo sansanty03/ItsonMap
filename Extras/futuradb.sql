@@ -10,6 +10,11 @@ CREATE TABLE categorias (
     fillOpacity DECIMAL(2,1)
 );
 
+CREATE TABLE Tipo_Servicio(
+	id INT PRIMARY KEY auto_increment,
+    nombre VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE planteles(
 	id INT PRIMARY KEY auto_increment,
     nombre VARCHAR(50) NOT NULL,
@@ -41,11 +46,23 @@ CREATE TABLE marcadores (
 CREATE TABLE aulas(
 	id INT PRIMARY KEY auto_increment,
     nombre VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(80) DEFAULT NULL,
     lat DECIMAL(9,6) NOT NULL,
     lng DECIMAL(9,6) NOT NULL,
     activo BOOLEAN DEFAULT TRUE,
     poligono_id INT NOT NULL,
     FOREIGN KEY (poligono_id) REFERENCES poligonos(id)
+);
+
+CREATE TABLE Serivicios(
+	id INT PRIMARY KEY auto_increment,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(150) NOT NULL,
+    activo BOOLEAN DEFAULT TRUE,
+    poligono_id INT NOT NULL,
+    tipo_id INT NOT NULL,
+    FOREIGN KEY (poligono_id) REFERENCES poligonos(id),
+    FOREIGN KEY (tipo_id)  REFERENCES Tipo_Servicio(id)
 );
 
 INSERT INTO planteles (nombre, coordenadas) VALUES 
@@ -119,7 +136,17 @@ INSERT INTO planteles (nombre, coordenadas) VALUES
 )
 );
 
--- Tabla de categorías solo para los polígonos (edificios)
+INSERT INTO Tipo_Servicio (nombre) VALUES
+("Aulas"),
+("Tramite de documento"),
+("Laboratorios"),
+("Inscripcion"),
+("Asesorias"),
+("Prestamo de computadoras"),
+("Compra y venta"),
+("Libros")
+;
+
 INSERT INTO categorias (id, nombre, color, fillColor, fillOpacity) VALUES 
 (1, 'Edificio de aula',        'blue',      'lightblue', 0.5),
 (2, 'Edificio de laboratorio', '#ffb703',   null,   1),
@@ -364,7 +391,7 @@ INSERT INTO poligonos (nombre, coordenadas, categoria_id, planteles_id) VALUES
     JSON_ARRAY(27.493229986406348,-109.97233499375076)
 ), 2, 1),
 
-('CafeteriaAl', JSON_ARRAY(
+('Alamos', JSON_ARRAY(
     JSON_ARRAY(27.49218329174758,-109.96966899149763),
     JSON_ARRAY(27.492188243257544,-109.96944879890677),
     JSON_ARRAY(27.491916678231647,-109.96944284777712),
@@ -510,37 +537,37 @@ INSERT INTO poligonos (nombre, coordenadas, categoria_id, planteles_id) VALUES
     JSON_ARRAY(27.49252855637208,-109.97044092824598),
     JSON_ARRAY(27.492407313799603,-109.97044255143415),
     JSON_ARRAY(27.492411464682846,-109.97076759430998)
-), 4, 1),  -- color '#8338ec' = Administrativos/Académicos
+), 4, 1), 
 
 ( 'aulaMagna', JSON_ARRAY(
     JSON_ARRAY(27.49225850638058,-109.97046810533175),
     JSON_ARRAY(27.492254091229512,-109.97024252487462),
     JSON_ARRAY(27.492125726068707,-109.970243135111364),
     JSON_ARRAY(27.492126724009864,-109.97047237515066)
-), 5, 1),  -- color '#ff006e' = Servicios
+), 5, 1),  
 
-('cafeteriaKiawa', JSON_ARRAY(
+('Kiawa', JSON_ARRAY(
     JSON_ARRAY(27.493424795688114,-109.97267232298178),
     JSON_ARRAY(27.49353982409552,-109.97272211150768),
     JSON_ARRAY(27.49360060277084,-109.97254961193805),
     JSON_ARRAY(27.493535102608845,-109.9725226222172),
     JSON_ARRAY(27.493487326194725,-109.97249596770743),
     JSON_ARRAY(27.49348220042036,-109.97252329265328)
-), 3, 1),  -- color '#fb5607' = Cafetería
+), 3, 1),  
 
 ('difusion', JSON_ARRAY(
     JSON_ARRAY(27.49160258635169,-109.97249403639755),
     JSON_ARRAY(27.491769279416886,-109.97250156251079),
     JSON_ARRAY(27.491773258403057,-109.97221177074896),
     JSON_ARRAY(27.491607476023177,-109.97220720577957)
-), 5, 1),  -- Servicios
+), 5, 1), 
 
 ('cultural', JSON_ARRAY(
     JSON_ARRAY(27.49151235150704,-109.97248556825542),
     JSON_ARRAY(27.4915164101659,-109.97219503900314),
     JSON_ARRAY(27.491345875635474,-109.97219604055246),
     JSON_ARRAY(27.491346271110174,-109.9724857501123)
-), 5, 1),  -- Servicios
+), 5, 1), 
 
 ('cafeteria2', JSON_ARRAY(
     JSON_ARRAY(27.491897339928357,-109.970422),
@@ -548,7 +575,7 @@ INSERT INTO poligonos (nombre, coordenadas, categoria_id, planteles_id) VALUES
     JSON_ARRAY(27.491759,-109.970661),
     JSON_ARRAY(27.491902322665297,-109.97065558764709),
     JSON_ARRAY(27.491897214941474,-109.97061158327313)
-), 3, 1),  -- Cafetería
+), 3, 1), 
 
 ( 'libreria', JSON_ARRAY(
     JSON_ARRAY(27.491897339928357,-109.97037),
@@ -707,11 +734,3 @@ INSERT INTO marcadores (tipo, lat, lng, iconUrl, visible_desde_zoom, activo, pla
 ('entrada', 27.493659, -109.973471, 'entradas.png', 15, TRUE, 1),
 ('entrada', 27.491261, -109.972613, 'entradas.png', 15, TRUE, 1);
 
-INSERT INTO aulas(nombre, lat, lng, poligono_id) values(
-("av1821",27.49423452369214, -109.97215194146008,1),
-("av1822",27.494229765703576, -109.97226465667912,1),
-("av1823",27.49423452369214 -109.97243104581194,1),
-("av1621", 27.493454210818093 ,-109.97190504145655,3),
-("av1623", 27.493449452795794, -109.97181916319444, 3),
-("av1624",27.49344469477329, -109.9717225501496,3)
-);
