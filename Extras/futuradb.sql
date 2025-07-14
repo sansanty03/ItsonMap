@@ -16,7 +16,6 @@ CREATE TABLE planteles(
     coordenadas JSON NOT NULL
 );
 
--- Tabla Polígonos
 CREATE TABLE poligonos (
     id INT PRIMARY KEY auto_increment,
     nombre VARCHAR(50) NOT NULL,
@@ -27,7 +26,6 @@ CREATE TABLE poligonos (
     FOREIGN KEY (planteles_id) REFERENCES planteles(id)
 );
 
--- Tabla Marcadores
 CREATE TABLE marcadores (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tipo VARCHAR(50) NOT NULL,
