@@ -211,7 +211,6 @@ function edificio(nombreEdifcio) {
 
     map.flyTo([latitud, longitud], 18);
 
-    // Mostrar solo el tooltip del polígono buscado
     poligono.openTooltip();
     setTimeout(() => {
      mostrarEtiquetas();
@@ -243,7 +242,6 @@ function aulaBusqueda(nombreAula){
 
 inputBusqueda.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-       // event.preventDefault(); 
         if (markerAula) markerAula.remove();
         var busqueda = document.getElementById("inputBusqueda").value;
         edificio(busqueda);
@@ -362,7 +360,7 @@ rutaBtn.addEventListener('click', async function () {
         }
         }
         else{
-
+            alert("No se busca la ruta si no esta en itson");
         }
     } catch (e) {
         console.log("No se pudo obtener la ubicación.");

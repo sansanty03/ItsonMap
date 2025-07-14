@@ -177,15 +177,6 @@ const toRadians = (degrees) => degrees * (Math.PI / 180);
 const toDegrees = (radians) => radians * (180 / Math.PI);
 const degreesToRadians = (degrees) => degrees * (Math.PI / 180);
 
-/*
-function onMapClick(e) {
 
-    
-    
-    rutas(e.latlng.lat, e.latlng.lng, 27.493935, -109.971948);
-   
-}
-//lineasLayer.addTo(map);
-map.on('click', onMapClick);*/
 
 

@@ -1,17 +1,25 @@
 let coordPlantel =  [];
 
-fetch(`https://web-production-b0921.up.railway.app/delimitacion?plantel=${encodeURIComponent(plantel)}`)
-  .then(response => response.json())
+fetch(`https://web-production-b0921.up.railway.app/plantel_coordenadas?plantel=${encodeURIComponent(plantel)}`)
+  .then(res => res.json())
   .then(data => {
-    if (data.length > 0 && data[0].coordenadas) {
-      coordPlantel = data[0].coordenadas; 
+    if (data && data.coordenadas) {
+        coordPlantel = data.coordenadas;
+        var ITSON = L.polygon(
+            coordPlantel
+                
+            ,{
+                color: '#a2d2ff',
+                fillOpacity: 0
+            }
+        ).addTo(map);
     } else {
-      console.warn("No se encontraron coordenadas para el plantel");
+      console.error("Coordenadas del plantel no encontradas", data);
     }
   })
-  .catch(error => {
-    console.error("Error al obtener coordenadas del plantel:", error);
-});
+  .catch(err => {
+    console.error("Error al obtener coordenadas del plantel:", err);
+  });
 
 fetch(`https://web-production-b0921.up.railway.app/poligonos?plantel=${encodeURIComponent(plantel)}`)
   .then(response => response.json())
@@ -27,7 +35,6 @@ fetch(`https://web-production-b0921.up.railway.app/poligonos?plantel=${encodeURI
         direction: 'center',
         className: 'label-tooltip'
       });
-
       ListPoligon.push(poligono);
       
       const claveOriginal = transformarTexto(p.nombre);
@@ -109,12 +116,5 @@ fetch(`https://web-production-b0921.up.railway.app/aulas?plantel=${encodeURIComp
     console.error("Error al cargar aulas:", error);
 });
 
-var ITSON = L.polygon(
-    coordPlantel
-    
- ,{
-    color: '#a2d2ff',
-    fillOpacity: 0
-}
-).addTo(map);
+
 
