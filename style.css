@@ -1,10 +1,11 @@
 body{
   margin: 0px;
+  font-family: Arial, sans-serif;
 }
 #map{
-    z-index: 2;
-    height: 100vh;
-    width: 100%;
+  z-index: 2;
+  height: 100vh;
+  width: 100%;
 }
 
 .fijado{
@@ -14,22 +15,21 @@ body{
 }
 
 header {
-  
-    z-index: 3;
-    background-color: #0074D9; 
-    padding: 10px;
-    color: white;
-    text-align: center; 
+  z-index: 3;
+  background-color: #0074D9; 
+  padding: 10px;
+  color: white;
+  text-align: center; 
 }
 
 .botones {
-    text-align: center; 
-    background-color: #ffffff;
+  text-align: center; 
+  background-color: #ffffff;
 }
 
 i{
-    padding: 5px;
-    font-size: 16px;
+  padding: 5px;
+  font-size: 16px;
 }
 
 .boton {
@@ -65,10 +65,10 @@ button:active {
 }
 
 .group {
-    display: flex;
-    line-height: 28px;
-    align-items: center;
-    position: relative;
+  display: flex;
+  line-height: 28px;
+  align-items: center;
+  position: relative;
 }
 
 .input {
@@ -142,39 +142,81 @@ footer {
 }
 
 .marker-circle {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .marker-circle.start {
-    background-color: #0F9D58;
-    box-shadow: 0 0 0 3px rgba(15, 157, 88, 0.3);
+  background-color: #0F9D58;
+  box-shadow: 0 0 0 3px rgba(15, 157, 88, 0.3);
 }
 
 .marker-circle.end {
-    background-color: #DB4437;
-    box-shadow: 0 0 0 3px rgba(219, 68, 55, 0.3);
+  background-color: #DB4437;
+  box-shadow: 0 0 0 3px rgba(219, 68, 55, 0.3);
 }
 
 .leaflet-tooltip.label-tooltip {
-    background-color: rgba(255, 255, 255, 0.85); /* Fondo blanco semi-transparente */
-    border: 1px solid #333; /* Borde gris oscuro */
-    padding: 2px 6px; /* Espaciado interior */
-    font-size: 12px; /* Tamaño de fuente */
-    color: #000; /* Color del texto */
-    font-weight: bold; /* Texto en negritas */
-    border-radius: 4px; /* Bordes redondeados */
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25); /* Sombra sutil */
-    pointer-events: none; /* Evita que interfiera con clics */
-    white-space: nowrap; /* No se parte en varias líneas */
+  background-color: rgba(255, 255, 255, 0.85); 
+  border: 1px solid #333; 
+  padding: 2px 6px;
+  font-size: 12px; 
+  color: #000; 
+  font-weight: bold; 
+  border-radius: 4px; 
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25); 
+  pointer-events: none; 
+  white-space: nowrap; 
+}
+#boton-simbologia {
+  top: 20px;
+  left: 20px;
+  width: 160px;
+  padding: 10px 15px;
+  background-color: #0471ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
 }
 
-   
-   
-   
-   
-   
+#cuadro-simbologia {
+  top: 60px;
+  left: 20px;
+  width: 160px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  padding: 0 10px; /* Solo padding lateral al inicio */
+}
+
+#cuadro-simbologia.abierto {
+  max-height: 220px;
+  padding: 10px;
+}
+
+.item-simbolo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.item-simbolo img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+.simbologiaCompleta{
+    position: fixed;
+  right: 15px;
+    top: 130px;
+      z-index: 1000;
+}

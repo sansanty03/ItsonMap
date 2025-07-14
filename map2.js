@@ -19,6 +19,13 @@ var ubiBtn = document.getElementById("UbicacionBtn");
 
 var footer = document.querySelector('footer');
 
+var botonSimbologia = document.getElementById("boton-simbologia");
+var cuadro = document.getElementById("cuadro-simbologia");
+
+var markerPos = L.marker([27.49265, -109.971157],{opacity:0,iconSize:3 }).addTo(map);
+
+var markerAula = L.marker([27.49265, -109.971157],{opacity:0,iconSize:3 }).addTo(map);
+
 var prom = [];
 
 var caso = 0;  
@@ -115,7 +122,7 @@ function onLocationError(e) {
 
 function dentroItson(lat, lon){
     var pointT = turf.point([lat, lon]);  
-    var polygon = turf.polygon([coordItson]);
+    var polygon = turf.polygon([coordPlantel]);
     enItson = turf.booleanPointInPolygon(pointT, polygon);
 
 }
@@ -163,8 +170,6 @@ function ocultarEtiquetas(){
     ListPoligon.forEach(p => {
     if (p.closeTooltip) p.closeTooltip();
   });
-
-  colorOriginal(); 
 }
 
 function mostrarEtiquetas() {
@@ -184,10 +189,10 @@ document.addEventListener("DOMContentLoaded", function() {
 function edificio(nombreEdifcio) {
   const Busqueda = nombreEdifcio;
   const inputBusqueda = transformarTexto(Busqueda);
-
-  ocultarEtiquetas();
-
+    colorOriginal();
+    mostrarEtiquetas();
   if (poligonosPorNombre.has(inputBusqueda)) {
+    ocultarEtiquetas();
     const poligono = poligonosPorNombre.get(inputBusqueda);
     poligono.setStyle({ fillColor: 'green' });
 
@@ -211,31 +216,47 @@ function edificio(nombreEdifcio) {
     setTimeout(() => {
      mostrarEtiquetas();
     }, 7000);
+    rutaBtn.style.visibility = 'visible';
+
   }
 }
 
 function aulaBusqueda(nombreAula){
-    const edificio = obtenerEdificioDeAula(nombreAula);
-    const coords = obtenerLatLonDeAula(nombreAula);
-    edificio(edificio);
-    prom = [coords.lat, coords.lng];
-    caso = 1;
-    map.flyTo([coords.lat, coords.lng], 18);
-    rutaBtn.style.visibility = 'visible';
-
+    const inputBusqueda = transformarTexto(nombreAula);
+    if (AulasPorNombre.has(inputBusqueda)) {
+        const edificioNombre = obtenerEdificioDeAula(inputBusqueda);
+        const coords = obtenerLatLonDeAula(inputBusqueda);
+        edificio(edificioNombre);
+        ocultarEtiquetas();
+        prom = [coords.lat, coords.lng];
+        caso = 1;
+        
+        markerAula = L.marker([coords.lat, coords.lng]).addTo(map);
+        markerAula.bindPopup(nombreAula).openPopup();
+        map.flyTo([coords.lat, coords.lng], 18);
+        setTimeout(() => {
+        mostrarEtiquetas();
+        }, 7000);
+        rutaBtn.style.visibility = 'visible';
+    }
 }
 
 inputBusqueda.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
        // event.preventDefault(); 
-        var nombreEdifcio = document.getElementById("inputBusqueda").value;
-        edificio(nombreEdifcio);
-        rutaBtn.style.visibility = 'visible';
+        if (markerAula) markerAula.remove();
+        var busqueda = document.getElementById("inputBusqueda").value;
+        edificio(busqueda);
+        aulaBusqueda(busqueda);
     }
 });
 
 bebederos.addEventListener('click', function () {
    mostrarBebederos();
+});
+
+botonSimbologia.addEventListener("click", () => {
+    cuadro.classList.toggle("abierto");
 });
 
 function mostrarBebederos(){
@@ -273,7 +294,6 @@ function ocultarBebederos() {
 
 baniosB.addEventListener('click', function () {
 
-    //obtenerPosicion();
     mostrarBanios();
 
 });
@@ -342,7 +362,7 @@ rutaBtn.addEventListener('click', async function () {
         }
         }
         else{
-             
+
         }
     } catch (e) {
         console.log("No se pudo obtener la ubicación.");
