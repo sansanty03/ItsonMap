@@ -1,7 +1,7 @@
 drop database if exists itsonMap;
 create database itsonMap;
 use itsonMap;
--- Tabla Categorías
+
 CREATE TABLE categorias (
     id INT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
