@@ -68,6 +68,8 @@ const iconos = {
 
 };
 
+const boundsFijos = L.latLngBounds(coordPlantel);
+
 fetch(`https://web-production-b0921.up.railway.app/marcadores?plantel=${encodeURIComponent(plantel)}`)
   .then(response => response.json())
   .then(marcadores => {
