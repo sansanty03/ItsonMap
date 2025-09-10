@@ -13,7 +13,7 @@ function cerrarPoligono(coords) {
 
 
 function crearMatrizDesdePoligonos(poligonos, anchoGrid = 100, altoGrid = 100, excluirPoligono = null) {
-    const bounds = map.getBounds();
+   const bounds = boundsFijos; // siempre el campus
     const matriz = Array.from({ length: altoGrid }, () => Array.from({ length: anchoGrid }, () => 0));
 
     poligonos.forEach(poligono => {
